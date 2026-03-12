@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: hsl(222 47% 4%);
+  --color-foreground: hsl(210 40% 98%);
+  --color-border: hsl(217 32% 17%);
+  --color-primary: hsl(191 100% 50%);
+  --color-primary-foreground: hsl(222 47% 4%);
+  
+  --radius-xl: 0.75rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    @apply antialiased;
+  }
+}
