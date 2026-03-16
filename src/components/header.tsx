@@ -1,8 +1,7 @@
 "use client";
 
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
-import { Button } from "./ui/button";
-import { PlusCircle } from "lucide-react";
+import { CreatePromptModal } from "./CreatePromptModal";
 
 export function Header() {
     const { isSignedIn, isLoaded } = useAuth();
@@ -22,9 +21,7 @@ export function Header() {
                         <>
                             {isSignedIn ? (
                                 <>
-                                    <Button variant="outline" className="border-cyan-500/50 text-cyan-400 bg-transparent rounded-full gap-2">
-                                        <PlusCircle className="h-4 w-4" /> Novo Prompt
-                                    </Button>
+                                    <CreatePromptModal />
                                     <UserButton />
                                 </>
                             ) : (
