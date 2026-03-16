@@ -1,6 +1,7 @@
 "use client";
 
-import { Bookmark, Copy } from "lucide-react";
+import { Bookmark, Check, Copy } from "lucide-react";
+import { useState } from "react";
 
 interface CardPromptProps {
     title: string;
@@ -9,6 +10,18 @@ interface CardPromptProps {
 }
 
 export default function CardPrompt({ title, content, category }: CardPromptProps) {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = async () => {
+        try {
+            await navigator.clipboard.writeText(content);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+            console.error("Erro ao copiar o texto: ", err);
+        } 
+    }
+
     return (
         <div className="group relative rounded-3xl border border-white/5 bg-slate-900/40 p-6 backdrop-blur-xl transition-all hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
             <div className="flex justify-between items-start mb-4">
@@ -31,8 +44,20 @@ export default function CardPrompt({ title, content, category }: CardPromptProps
             </div>
 
             <div className="mt-6 flex items-center justify-between">
-                <button className="p-2 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-full transition-all">
-                    <Copy className="h-4 w-4" />
+                <button onClick={handleCopy}
+                        className={`p-2 rounded-full transition-all ${
+                            copied 
+                            ? "text-emerald-400 bg-emerald-500/10"
+                            : "text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10"
+                        }`}
+                        title="Copiar"
+                        >
+                    {copied ? (
+                        <Check className="h-4 w-4" />
+                    ) : (
+                        <Copy className="h-4 w-4" />
+                    )}
+                    
                 </button>
                 <button className="text-xs font-bold text-slate-500 hover:text-white uppercase tracking-tighter transition-colors">
                     Ver Detalhes →
