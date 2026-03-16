@@ -65,6 +65,7 @@ export default async function Home() {
                                 title={p.title}
                                 category={p.category}
                                 content={p.content_prompt}
+                                created_at={p.created_at}
                             />
                         ))}
                     </div>

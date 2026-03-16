@@ -2,15 +2,18 @@
 
 import { Bookmark, Check, Copy } from "lucide-react";
 import { useState } from "react";
+import ModalDetails from "./ModalDetails";
 
 interface CardPromptProps {
     title: string;
     content: string;
     category: string;
+    created_at: string;
 }
 
-export default function CardPrompt({ title, content, category }: CardPromptProps) {
+export default function CardPrompt({ title, content, category, created_at }: CardPromptProps) {
     const [copied, setCopied] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleCopy = async () => {
         try {
@@ -23,6 +26,7 @@ export default function CardPrompt({ title, content, category }: CardPromptProps
     }
 
     return (
+        <>
         <div className="group relative rounded-3xl border border-white/5 bg-slate-900/40 p-6 backdrop-blur-xl transition-all hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.1)]">
             <div className="flex justify-between items-start mb-4">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-500 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
@@ -59,10 +63,17 @@ export default function CardPrompt({ title, content, category }: CardPromptProps
                     )}
                     
                 </button>
-                <button className="text-xs font-bold text-slate-500 hover:text-white uppercase tracking-tighter transition-colors">
+                <button onClick={() => setIsModalOpen(true)} 
+                        className="text-xs font-bold text-slate-500 hover:text-white uppercase tracking-tighter transition-colors">
                     Ver Detalhes →
                 </button>
             </div>
         </div>
+        <ModalDetails 
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            data={{ title, content,category, created_at }}
+        />
+        </>
     )
 }
