@@ -5,7 +5,7 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { neon } from "@neondatabase/serverless";
 
 export default async function Home() {
-    const { userId } = await auth();  
+    const { userId } = await auth();
     const sql = neon(process.env.DATABASE_URL!);
 
     if (userId) {
@@ -25,10 +25,15 @@ export default async function Home() {
     }
 
     const prompts = await sql`
-    SELECT * FROM prompts 
-    WHERE is_public = true
-    ORDER BY created_at DESC
-    LIMIT 12 
+   SELECT 
+        p.*, 
+        u.username
+    FROM prompts p
+    INNER JOIN users u ON p.author_id = u.user_id
+    WHERE p.is_public = true 
+    ${userId ? sql`OR p.author_id = ${userId}` : sql``}
+    ORDER BY p.created_at DESC
+    LIMIT 12;
     `;
 
     return (
@@ -49,9 +54,33 @@ export default async function Home() {
                     </section>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-30 grayscale pointer-events-none">
-                        <CardPrompt title="Preview 1" category="IA" content="Faça login para ver os prompts reais compartilhados na comunidade" />
-                        <CardPrompt title="Preview 2" category="IA" content="Faça login para ver os prompts reais compartilhados na comunidade" />
-                        <CardPrompt title="Preview 3" category="IA" content="Faça login para ver os prompts reais compartilhados na comunidade" />
+                        <CardPrompt
+                            title="Preview 1"
+                            category="IA"
+                            username="Comunidade"
+                            created_at={new Date().toISOString()}
+                            content="Faça login para ver os prompts reais compartilhados na comunidade"
+                            description="Uma breve descrição do que este prompt faz."
+                            is_public={true}
+                        />
+                        <CardPrompt
+                            title="Preview 2"
+                            category="IA"
+                            username="Comunidade"
+                            created_at={new Date().toISOString()}
+                            content="Faça login para ver os prompts reais compartilhados na comunidade"
+                            description="Uma breve descrição do que este prompt faz."
+                            is_public={true}
+                        />
+                        <CardPrompt
+                            title="Preview 3"
+                            category="IA"
+                            username="Comunidade"
+                            created_at={new Date().toISOString()}
+                            content="Faça login para ver os prompts reais compartilhados na comunidade"
+                            description="Uma breve descrição do que este prompt faz."
+                            is_public={true}
+                        />
                     </div>
                 </div>
             ) : (
@@ -65,7 +94,10 @@ export default async function Home() {
                                 title={p.title}
                                 category={p.category}
                                 content={p.content_prompt}
+                                description={p.description}
                                 created_at={p.created_at}
+                                username={p.username}
+                                is_public={p.is_public}
                             />
                         ))}
                     </div>

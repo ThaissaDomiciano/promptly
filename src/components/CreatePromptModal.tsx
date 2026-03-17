@@ -9,7 +9,7 @@ export function CreatePromptModal() {
         <>
             <button
                 onClick={() => setIsOpen(true)}
-                className="flex items-center gap-2 border border-cyan-500/50 text-cyan-400 px-4 py-2 rounded-full hover:bg-cyan-500/10 transition-all text-sm font-bold"
+                className="flex items-center gap-2 border border-cyan-500/50 text-cyan-400 px-4 py-2 rounded-full hover:bg-cyan-500/10 transition-all text-sm font-bold cursor-pointer"
             >
                 <PlusCircle className="h-4 w-4" /> Novo Prompt
             </button>
@@ -21,7 +21,7 @@ export function CreatePromptModal() {
 
                         <button
                             onClick={() => setIsOpen(false)}
-                            className="absolute top-6 right-6 text-slate-600 hover:text-white"
+                            className="absolute top-6 right-6 text-slate-600 hover:text-white cursor-pointer"
                         >
                             <X />
                         </button>
@@ -47,9 +47,10 @@ export function CreatePromptModal() {
 
                             <select
                                 name="category"
-                                className="w-full bg-black/40 border border-white/5 rounded-xl p-3 text-white outline-none"
+                                className="cursor-pointer w-full bg-black/40 border border-white/5 rounded-xl p-3 text-white outline-none"
                             >
                                 <option>Imagem</option>
+                                <option>Vídeo</option>
                                 <option>Código</option>
                                 <option>Escrita</option>
                             </select>
@@ -80,13 +81,13 @@ export function CreatePromptModal() {
                                     type="checkbox"
                                     name="is_public"
                                     defaultChecked
-                                    className="w-5 h-5 accent-cyan-500"
+                                    className="w-5 h-5 accent-cyan-500 cursor-pointer"
                                 />
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-extrabold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.2)]"
+                                className="cursor-pointer w-full bg-cyan-500 hover:bg-cyan-600 text-black font-extrabold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.2)]"
                             >
                                 Publicar Agora
                             </button>
