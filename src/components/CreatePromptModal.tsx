@@ -1,18 +1,31 @@
-import { createPromptAction } from "@/app/actions";
-import { Globe, PlusCircle, X } from "lucide-react";
+import { createPromptAction, updatePromptAction } from "@/app/actions";
+import { Globe, Pencil, PlusCircle, X } from "lucide-react";
 import { useState } from "react";
 
-export function CreatePromptModal() {
+interface CreatePromptModalProps {
+    isEditing?: boolean;
+    initialData?: any;
+}
+
+export function CreatePromptModal({ isEditing, initialData }: CreatePromptModalProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
+            {!isEditing ? (
             <button
                 onClick={() => setIsOpen(true)}
                 className="flex items-center gap-2 border border-cyan-500/50 text-cyan-400 px-4 py-2 rounded-full hover:bg-cyan-500/10 transition-all text-sm font-bold cursor-pointer"
             >
                 <PlusCircle className="h-4 w-4" /> Novo Prompt
             </button>
+
+            ) : (
+            <button onClick={() => setIsOpen(true)} className="p-2 text-slate-500 hover:text-cyan-400 bg-white/5 rounded-full border border-white/5 cursor-pointer">
+                <Pencil className="h-4 w-4" />
+            </button>
+
+            )}
 
             {isOpen && (
                 <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 backdrop-blur-sm p-4">
@@ -27,12 +40,16 @@ export function CreatePromptModal() {
                         </button>
 
                         <h2 className="text-2xl font-bold text-white mb-6">
-                            Nova Publicação
+                            {isEditing ? "Editar Publicação" : "Nova Publicação"}
                         </h2>
 
                         <form
                             action={async (fd) => {
-                                await createPromptAction(fd);
+                                if(isEditing) {
+                                    await updatePromptAction(initialData.prompt_id, fd);    
+                                } else {  
+                                    await createPromptAction(fd);
+                                }
                                 setIsOpen(false);
                             }}
                             className="space-y-4"
@@ -40,6 +57,7 @@ export function CreatePromptModal() {
 
                             <input
                                 name="title"
+                                defaultValue={initialData?.title}
                                 placeholder="Título do Prompt"
                                 required
                                 className="w-full bg-black/40 border border-white/5 rounded-xl p-3 text-white focus:border-cyan-500/50 outline-none"
@@ -47,6 +65,7 @@ export function CreatePromptModal() {
 
                             <select
                                 name="category"
+                                defaultValue={initialData?.category}
                                 className="cursor-pointer w-full bg-black/40 border border-white/5 rounded-xl p-3 text-white outline-none"
                             >
                                 <option>Imagem</option>
@@ -57,6 +76,7 @@ export function CreatePromptModal() {
 
                             <textarea
                                 name="description"
+                                defaultValue={initialData?.description}
                                 placeholder="Descreva o seu prompt"
                                 rows={2}
                                 required
@@ -65,6 +85,7 @@ export function CreatePromptModal() {
 
                             <textarea
                                 name="content_prompt"
+                                defaultValue={initialData?.content_prompt}
                                 placeholder="Cole aqui o comando"
                                 rows={4}
                                 required
@@ -89,7 +110,7 @@ export function CreatePromptModal() {
                                 type="submit"
                                 className="cursor-pointer w-full bg-cyan-500 hover:bg-cyan-600 text-black font-extrabold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.2)]"
                             >
-                                Publicar Agora
+                                {isEditing ? "Salvar Alterações" : "Publicar Agora"}
                             </button>
 
                         </form>

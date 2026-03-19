@@ -1,23 +1,38 @@
 "use client";
 
-import { AlignLeft, Calendar, Check, Copy, Info, User, X } from "lucide-react";
+import { deletePromptAction } from "@/app/actions";
+import { AlignLeft, Calendar, Check, Copy, Info, Trash2, User, X } from "lucide-react";
 import { useState } from "react";
+import { CreatePromptModal } from "./CreatePromptModal";
 
 interface ModalDetailsProps {
     isOpen: boolean;
     onClose: () => void;
+    currentUserId?: string | null;
     data: {
+        prompt_id: string;
+        author_id: string;
         title: string;
         content: string;
         description: string;
         category: string;
         created_at: string | Date;
         username: string;
+        is_public: boolean
     }
 }
 
-export default function ModalDetails({ isOpen, onClose, data }: ModalDetailsProps) {
+export default function ModalDetails({ isOpen, onClose, currentUserId, data }: ModalDetailsProps) {
     if (!isOpen) return null;
+
+    const isOwner =  currentUserId === data.author_id;
+
+    const handleDelete = async () => {
+        if(confirm("Deseja excluir esse prompt?")) {
+            await deletePromptAction(data.prompt_id);
+            onClose();
+        }
+    }
 
     const [copied, setCopied] = useState(false);
 
@@ -44,11 +59,33 @@ export default function ModalDetails({ isOpen, onClose, data }: ModalDetailsProp
                 onClick={(e) => e.stopPropagation()}
             >
 
-                <button onClick={onClose}
-                    className="absolute right-6 top-6 text-slate-400 hover:text-white transition-colors cursor-pointer"
-                >
-                    <X className="w-6 h-6" />
-                </button>
+                <div className="absolute right-6 top-6 flex gap-2 items-center">
+                    {isOwner && (
+                        <>
+                            <button onClick={handleDelete} className="p-2 text-slate-500 hover:text-red-500 bg-white/5 rounded-full border border-white/5 cursor-pointer">
+                                <Trash2 className="w-4 h-4" />
+                            </button>
+
+                            <CreatePromptModal 
+                                isEditing={true} 
+                                initialData={{
+                                    prompt_id: data.prompt_id,
+                                    title: data.title,
+                                    description: data.description,
+                                    content_prompt: data.content,
+                                    category: data.category,
+                                    is_public: data.is_public
+                                }} 
+                            />
+                        </>
+                    )}
+
+                    <button onClick={onClose}
+                        className="text-slate-400 hover:text-white transition-colors cursor-pointer"
+                    >
+                        <X className="w-6 h-6" />
+                    </button>
+                </div>
 
                 <div className="mb-6">
                     <span className="text-xs font-bold uppercase tracking-widest text-cyan-500 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">

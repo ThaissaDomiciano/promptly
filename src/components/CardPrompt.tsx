@@ -5,6 +5,9 @@ import { useState } from "react";
 import ModalDetails from "./ModalDetails";
 
 interface CardPromptProps {
+    prompt_id: string;
+    author_id: string;
+    currentUserId?: string | null;
     title: string;
     content: string;
     category: string;
@@ -14,7 +17,7 @@ interface CardPromptProps {
     is_public: boolean;
 }
 
-export default function CardPrompt({ title, content, category, created_at, username, is_public, description }: CardPromptProps) {
+export default function CardPrompt({ prompt_id, author_id, currentUserId, title, content, category, created_at, username, is_public, description }: CardPromptProps) {
     const [copied, setCopied] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -91,7 +94,8 @@ export default function CardPrompt({ title, content, category, created_at, usern
         <ModalDetails 
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            data={{ title, content,category, created_at, username, description}}
+            currentUserId={currentUserId}
+            data={{ prompt_id, author_id, title, content,category, created_at, username, description, is_public}}
         />
         </>
     )

@@ -55,6 +55,19 @@ export default async function Home() {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 opacity-30 grayscale pointer-events-none">
                         <CardPrompt
+                            prompt_id=""
+                            author_id=""
+                            title="Preview 1"
+                            category="IA"
+                            username="Comunidade"
+                            created_at={new Date().toISOString()}
+                            content="Faça login para ver os prompts reais compartilhados na comunidade"
+                            description="Uma breve descrição do que este prompt faz."
+                            is_public={true}
+                        />
+                       <CardPrompt
+                            prompt_id=""
+                            author_id=""
                             title="Preview 1"
                             category="IA"
                             username="Comunidade"
@@ -64,16 +77,9 @@ export default async function Home() {
                             is_public={true}
                         />
                         <CardPrompt
-                            title="Preview 2"
-                            category="IA"
-                            username="Comunidade"
-                            created_at={new Date().toISOString()}
-                            content="Faça login para ver os prompts reais compartilhados na comunidade"
-                            description="Uma breve descrição do que este prompt faz."
-                            is_public={true}
-                        />
-                        <CardPrompt
-                            title="Preview 3"
+                            prompt_id=""
+                            author_id=""
+                            title="Preview 1"
                             category="IA"
                             username="Comunidade"
                             created_at={new Date().toISOString()}
@@ -91,6 +97,9 @@ export default async function Home() {
                         {prompts.map((p: any) => (
                             <CardPrompt
                                 key={p.prompt_id}
+                                prompt_id={p.prompt_id}
+                                author_id={p.author_id}
+                                currentUserId={userId}
                                 title={p.title}
                                 category={p.category}
                                 content={p.content_prompt}
