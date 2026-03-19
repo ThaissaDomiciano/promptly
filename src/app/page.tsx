@@ -37,13 +37,40 @@ export default async function Home(props: {
     return (
         <main className="container mx-auto px-8 pt-32 pb-20">
             {!userId ? (
-                <div className="space-y-24 text-center">
-                    <h2 className="text-6xl font-black text-white">
-                        Eleve sua engenharia <span className="text-cyan-400">de prompts.</span>
-                    </h2>
-                    <SignInButton mode="modal">
-                        <Button size="lg" className="bg-cyan-500 rounded-full px-10">Começar agora</Button>
-                    </SignInButton>
+                <div className="space-y-16 text-center">
+                    <div className="space-y-8">
+                        <h2 className="text-6xl font-black text-white">
+                            Eleve sua engenharia <span className="text-cyan-400">de prompts.</span>
+                        </h2>
+                        <SignInButton mode="modal">
+                            <Button size="lg" className="bg-cyan-500 rounded-full px-10">Começar agora</Button>
+                        </SignInButton>
+                    </div>
+
+                    <div className="space-y-6">
+                        <p className="text-slate-400 text-sm font-medium">Confira alguns dos prompts disponíveis:</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
+                            {prompts.slice(0, 3).map((p: any) => (
+                                <div key={p.prompt_id} className="relative">
+                                    <div className="blur-sm pointer-events-none">
+                                        <CardPrompt 
+                                            {...p} 
+                                            prompt_id={p.prompt_id} 
+                                            author_id={p.author_id} 
+                                            currentUserId={null} 
+                                        />
+                                    </div>
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <SignInButton mode="modal">
+                                            <button className="bg-cyan-500/90 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded-full transition-all">
+                                                Entrar para ver
+                                            </button>
+                                        </SignInButton>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             ) : (
                 <div className="space-y-6">
