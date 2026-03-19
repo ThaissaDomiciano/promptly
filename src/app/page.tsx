@@ -52,7 +52,7 @@ export default async function Home(props: {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
                             {prompts.slice(0, 3).map((p: any) => (
                                 <div key={p.prompt_id} className="relative rounded-3xl overflow-hidden">
-                                    <div className="blur-lg pointer-events-none">
+                                    <div className="blur-sm pointer-events-none">
                                         <CardPrompt 
                                             {...p} 
                                             prompt_id={p.prompt_id} 
@@ -60,8 +60,8 @@ export default async function Home(props: {
                                             currentUserId={null} 
                                         />
                                     </div>
-                                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-3xl">
-                                        <p className="text-white text-center font-semibold text-lg">
+                                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center rounded-3xl">
+                                        <p className="text-white text-center font-light italic text-lg">
                                             Faça login para explorar <br /> incríveis prompts
                                         </p>
                                     </div>
