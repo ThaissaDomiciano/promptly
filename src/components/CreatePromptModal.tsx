@@ -28,9 +28,9 @@ export function CreatePromptModal({ isEditing, initialData }: CreatePromptModalP
             )}
 
             {isOpen && (
-                <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 backdrop-blur-sm p-4">
+                <div className="fixed inset-0 z-50 grid place-items-center bg-black/40 backdrop-blur-sm p-4">
                     
-                    <div className="w-full max-w-lg bg-slate-900 border border-white/10 rounded-3xl p-8 shadow-2xl relative">
+                    <div className="w-full max-w-lg bg-slate-800 border border-white/10 rounded-3xl p-8 shadow-2xl relative">
 
                         <button
                             onClick={() => setIsOpen(false)}
@@ -60,13 +60,13 @@ export function CreatePromptModal({ isEditing, initialData }: CreatePromptModalP
                                 defaultValue={initialData?.title}
                                 placeholder="Título do Prompt"
                                 required
-                                className="w-full bg-black/40 border border-white/5 rounded-xl p-3 text-white focus:border-cyan-500/50 outline-none"
+                                className="w-full bg-slate-700/40 border border-white/5 rounded-xl p-3 text-white focus:border-cyan-500/50 outline-none"
                             />
 
                             <select
                                 name="category"
                                 defaultValue={initialData?.category}
-                                className="cursor-pointer w-full bg-black/40 border border-white/5 rounded-xl p-3 text-white outline-none"
+                                className="cursor-pointer w-full bg-slate-700/40 border border-white/5 rounded-xl p-3 text-white outline-none"
                             >
                                 <option>Imagem</option>
                                 <option>Vídeo</option>
@@ -80,7 +80,7 @@ export function CreatePromptModal({ isEditing, initialData }: CreatePromptModalP
                                 placeholder="Descreva o seu prompt"
                                 rows={2}
                                 required
-                                className="w-full bg-black/40 border border-white/5 rounded-xl p-3 text-white focus:border-cyan-500/50 outline-none resize-none"
+                                className="w-full bg-slate-700/40 border border-white/5 rounded-xl p-3 text-white focus:border-cyan-500/50 outline-none resize-none"
                             />
 
                             <textarea
@@ -89,7 +89,7 @@ export function CreatePromptModal({ isEditing, initialData }: CreatePromptModalP
                                 placeholder="Cole aqui o comando"
                                 rows={4}
                                 required
-                                className="w-full bg-black/20 border border-cyan-500/20 rounded-xl p-4 text-cyan-100 font-mono text-sm outline-none resize-none"
+                                className="w-full bg-slate-700/30 border border-cyan-500/20 rounded-xl p-4 text-cyan-100 font-mono text-sm outline-none resize-none"
                             />
 
                             <div className="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/5">

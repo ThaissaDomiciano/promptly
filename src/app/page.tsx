@@ -26,7 +26,7 @@ export default async function Home(props: {
     }
 
     const prompts = await sql`
-        SELECT p.*, u.username
+        SELECT p.prompt_id, p.author_id, p.title, p.content_prompt as content, p.description, p.category, p.created_at, p.is_public, u.username
         FROM prompts p
         INNER JOIN users u ON p.author_id = u.user_id
         WHERE (p.is_public = true ${userId ? sql`OR p.author_id = ${userId}` : sql``})
@@ -46,7 +46,7 @@ export default async function Home(props: {
                     </SignInButton>
                 </div>
             ) : (
-                <div className="space-y-10">
+                <div className="space-y-6">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-white/5 pb-8">
                         <h2 className="text-4xl font-bold text-white">Seu feed</h2>
                         <CategoryFilter />

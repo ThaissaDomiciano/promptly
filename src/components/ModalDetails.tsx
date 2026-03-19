@@ -54,8 +54,8 @@ export default function ModalDetails({ isOpen, onClose, currentUserId, data }: M
     }
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={onClose}>
-            <div className="relative w-full max-auto max-w-2xl rounded-3xl border border-white/10 bg-slate-900 p-8 shadow-2xl shadow-cyan-500/10"
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={onClose}>
+            <div className="relative w-full max-auto max-w-2xl rounded-3xl border border-white/10 bg-slate-800 p-8 shadow-2xl shadow-cyan-500/10"
                 onClick={(e) => e.stopPropagation()}
             >
 
@@ -95,7 +95,7 @@ export default function ModalDetails({ isOpen, onClose, currentUserId, data }: M
                         {data.title}
                     </h2>
                     <div className="flex items-center gap-2 mt-3">
-                    <div className="h-5 w-5 rounded-full bg-slate-800 border border-white/5 flex items-center justify-center">
+                    <div className="h-5 w-5 rounded-full bg-slate-700 border border-white/5 flex items-center justify-center">
                         <User className="h-3 w-3 text-slate-400" />
                     </div>
                     <span className="text-sm font-medium text-slate-400">
@@ -118,7 +118,7 @@ export default function ModalDetails({ isOpen, onClose, currentUserId, data }: M
                     )}
 
                 <div className="space-y-6">
-                    <div className="rounded-2xl bg-black/40 p-6 border border-white/5">
+                    <div className="rounded-2xl bg-slate-800/40 p-6 border border-white/5">
                         <div className="flex items-center gap-2 mb-3 text-cyan-400/80 text-sm font-medium">
                             <AlignLeft className="h-4 w-4" />
                             <span>Prompt Completo</span>

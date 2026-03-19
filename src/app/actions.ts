@@ -62,3 +62,32 @@ export async function updatePromptAction(promptId: string, formData: FormData) {
 
    revalidatePath("/");
 }
+
+export async function toggleSaveAction(promptId: string | number) {
+   const { userId } = await auth(); 
+   if(!userId) return;
+
+   const sql = neon(process.env.DATABASE_URL!);
+   
+   const existing = await sql`
+    SELECT 1 FROM saved_prompts
+    WHERE user_id = ${userId} 
+    AND prompt_id = ${promptId}
+   `;
+
+   if (existing.length > 0) {
+    await sql`
+        DELETE FROM saved_prompts 
+        WHERE user_id = ${userId}
+        AND prompt_id = ${promptId} 
+    `;
+   } else {
+    await sql`
+        INSERT INTO saved_prompts (user_id, prompt_id)
+        VALUES (${userId}, ${promptId})
+    `;
+
+    revalidatePath("/");
+    revalidatePath("/salvos");
+   }
+}

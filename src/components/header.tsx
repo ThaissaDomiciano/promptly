@@ -2,6 +2,8 @@
 
 import { SignInButton, useAuth, UserButton } from "@clerk/nextjs";
 import { CreatePromptModal } from "./CreatePromptModal";
+import { Bookmark} from "lucide-react";
+import Link from "next/link";
 
 export function Header() {
     const { isSignedIn, isLoaded } = useAuth();
@@ -16,11 +18,18 @@ export function Header() {
 
                 <nav className="flex items-center gap-6">
                     {!isLoaded ? (
-                        <div className="w-20 h-8 animate-pulse bg-slate-800/50 rounded-full" />
+                        <div className="w-20 h-8 animate-pulse bg-slate-700/50 rounded-full" />
                     ) : (
                         <>
                             {isSignedIn ? (
                                 <>
+                                    <Link 
+                                        href="/saves" 
+                                        className="p-2 text-slate-400 hover:text-cyan-400 bg-white/5 rounded-full border border-white/5 transition-all cursor-pointer"
+                                        title="Meus Salvos"
+                                    >
+                                        <Bookmark className="w-5 h-5" />
+                                    </Link>
                                     <CreatePromptModal />
                                     <UserButton />
                                 </>
