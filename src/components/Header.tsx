@@ -12,9 +12,11 @@ export function Header() {
         <header className="fixed top-0 z-50 w-full bg-transparent backdrop-blur-md border-b border-white/5">
             <div className="container flex h-20 items-center justify-between px-8 mx-auto">
     
-                <h1 className="text-2xl font-black tracking-tighter bg-linear-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent">
-                    Promptly
-                </h1>
+                <Link href="/">
+                    <h1 className="text-2xl font-black tracking-tighter bg-linear-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent cursor-pointer hover:opacity-80 transition-opacity">
+                        Promptly
+                    </h1>
+                </Link>
 
                 <nav className="flex items-center gap-6">
                     {!isLoaded ? (
